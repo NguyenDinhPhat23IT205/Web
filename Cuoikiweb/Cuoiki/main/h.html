@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        body{
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slide-show{
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  position: relative;
+}
+.list-images{
+  display: flex;
+  transition: 0.5s;
+}
+.btn:hover{
+  color: white;
+}
+.btn{
+  font-size: 50px;
+  color: #16a085;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 0.5s;
+  cursor: pointer;
+}
+.btn-left{
+  left: 0;
+}
+.btn-rigth{
+  right: 0;
+}
+.index-images{
+  position: absolute;
+  bottom: 10px;
+  display: flex;
+  left: 50%;
+  transform: translateX(-50%);
+  
+}
+.index-item{
+  border: 2px solid #999;
+  padding: 10px;
+  margin: 3px;
+  border-radius: 50%;
+}
+.active{
+  background-color: #999;
+}
+    </style>
+</head>
+<body>
+    <div class="slide-show">
+        <div class="list-images">
+            <img src="Cuoiki/Dichvu/image/giuongbenh.jpg" alt="">
+            <img src="Cuoiki/Dichvu/image/giuong-y-te-3-tay-quay-lucass-gb-c31 (1).jpg" alt="">
+            <img src="Cuoiki/Dichvu/image/Giuong-Y-Te-Cao-Cap-LUX01.jpg" alt="">
+            <img src="Cuoiki/Dichvu/image/SD-47TC.webp" alt="">
+        </div>
+        <div class="btns">
+          <div class="btn-left btn">
+            <i class='bx bx-chevron-left'></i>
+          </div>
+          <div class="btn-rigth btn">
+            <i class='bx bx-chevron-right'></i>
+          </div>
+        </div>
+        <div class="index-images">
+          <div class="index-item index-item-0 active"></div>
+          <div class="index-item index-item-1"></div>
+          <div class="index-item index-item-2"></div>
+          <div class="index-item index-item-3"></div>
+        </div>
+      </div>
+      <script language="JavaScript">
+        const listImage = document.querySelector('.list-images')
+        const imgs = document.getElementsByTagName('img')
+        const length = imgs.length
+        const btnLeft=document.querySelector('.btn-left')
+        const btnRight=document.querySelector('.btn-rigth')
+        let current = 0
+
+        const handleChangeSlide = () => {
+          if(current == length - 1){
+                current = 0
+                let width = imgs[0].offsetWidth
+                listImage.style.transform = `translateX(0px)`
+                document.querySelector('.active').classList.remove('active')
+                document.querySelector('.index-item-' +current).classList.add('active')
+            }
+            else{
+                current++
+                let width = imgs[0].offsetWidth
+                listImage.style.transform = `translateX(${width * -1 * current}px)`
+                document.querySelector('.active').classList.remove('active')
+                document.querySelector('.index-item-' +current).classList.add('active')
+            }
+        }
+
+        let handleEventChangeSlide = setInterval(handleChangeSlide, 4000)
+
+        btnRight.addEventListener('click', () => {
+          clearInterval(handleEventChangeSlide)
+            handleChangeSlide()
+            handleEventChangeSlide = setInterval(handleChangeSlide, 4000)
+          })
+
+        btnLeft.addEventListener('click', () => {
+          clearInterval(handleEventChangeSlide)
+          if(current == 0){
+                current = length - 1
+                let width = imgs[0].offsetWidth
+                listImage.style.transform = `translateX(${width * -1 * current}px)`
+                document.querySelector('.active').classList.remove('active')
+                document.querySelector('.index-item-' +current).classList.add('active')
+                
+            }else{
+                current--
+                let width = imgs[0].offsetWidth
+                listImage.style.transform = `translateX(${width * -1 * current}px)`
+                document.querySelector('.active').classList.remove('active')
+                document.querySelector('.index-item-' +current).classList.add('active')
+            }
+            handleEventChangeSlide = setInterval(handleChangeSlide, 4000)
+        })
+      </script>
+</body>
+</html>
